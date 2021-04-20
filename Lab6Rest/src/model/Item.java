@@ -18,7 +18,7 @@ public class Item
 				con= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/it18199086","root","");
 				
 				//For testing
-				//System.out.print("Successfully Connected");
+				System.out.print("Successfully Connected");
 			}
 			catch(Exception e)
 			{
@@ -41,7 +41,7 @@ public class Item
 			}
 			
 			// Create a prepared statement 'itemID', ?,
-			String query = "insert into items('itemCode','itemName','itemPrice','itemDesc')"+" values( ?, ?, ?, ?)";
+			String query = " insert into itemsk ('itemID','itemCode','itemName','itemPrice','itemDesc')" + " values (?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
 			//blinding values
@@ -85,7 +85,7 @@ public class Item
 				+ "<th>Item Description</th>"
 				+ "<th>Update</th><th>Remove</th></tr>";
 			
-			String query = "select * from items";
+			String query = "select * from itemsk";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
