@@ -7,13 +7,18 @@ import javax.ws.rs.FormParam;
 //For REST Service
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 //For XML
 import org.jsoup.*; 
-import org.jsoup.parser.*; 
+import org.jsoup.parser.*;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import org.jsoup.nodes.Document; 
 
 @Path("/Items")
@@ -29,6 +34,7 @@ public class ItemService {
 		return itemObj.readItems();
 	}
 	
+	
 	@POST
 	@Path("/") 
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
@@ -38,8 +44,31 @@ public class ItemService {
 							 @FormParam("itemPrice") String itemPrice, 
 							 @FormParam("itemDesc") String itemDesc) 
 	{ 
-	 String output = itemObj.insertItem(itemCode, itemName, itemPrice, itemDesc); 
-	return output; 
+			String output = itemObj.insertItem(itemCode, itemName, itemPrice, itemDesc); 
+			
+			return output; 
+	}
+	
+	
+	@PUT
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_JSON) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String updateItem(String itemData) 
+	{ 
+			//Convert the input string to a JSON object 
+			 JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject(); 
+			 
+			//Read the values from the JSON object
+			 String itemID = itemObject.get("itemID").getAsString(); 
+			 String itemCode = itemObject.get("itemCode").getAsString(); 
+			 String itemName = itemObject.get("itemName").getAsString(); 
+			 String itemPrice = itemObject.get("itemPrice").getAsString(); 
+			 String itemDesc = itemObject.get("itemDesc").getAsString(); 
+			 
+			 String output = itemObj.updateItem(itemID, itemCode, itemName, itemPrice, itemDesc); 
+			 
+			 return output; 
 	}
 
 

@@ -28,7 +28,7 @@ public class Item
 			return con;
 	}
 	
-	public String insertItem(String code, String name, String price, String desc)
+	public String insertItem(String code, String name, String itemPrice, String desc)
 	{
 		String output = "";
 		
@@ -41,14 +41,14 @@ public class Item
 			}
 			
 			// Create a prepared statement 'itemID', ?,
-			String query = " insert into itemsk ('itemID','itemCode','itemName','itemPrice','itemDesc')" + " values (?, ?, ?, ?, ?)";
+			String query =  " insert into items(`itemID`,`itemCode`,`itemName`,`itemPrice`,`itemDesc`)"+ " values (?, ?, ?, ?, ?)"; 
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
 			//blinding values
 			preparedStmt.setInt(1, 0);
 			preparedStmt.setString(2, code);
 			preparedStmt.setString(3, name);
-			preparedStmt.setDouble(4, Double.parseDouble(price));
+			preparedStmt.setDouble(4, Double.parseDouble(itemPrice));
 			preparedStmt.setString(5, desc);
 			
 			//execute the statement
@@ -85,7 +85,7 @@ public class Item
 				+ "<th>Item Description</th>"
 				+ "<th>Update</th><th>Remove</th></tr>";
 			
-			String query = "select * from itemsk";
+			String query = "select * from items";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
