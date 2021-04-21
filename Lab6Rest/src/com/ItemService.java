@@ -3,6 +3,7 @@ package com;
 import model.Item;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 //For REST Service
 import javax.ws.rs.GET;
@@ -70,6 +71,25 @@ public class ItemService {
 			 
 			 return output; 
 	}
+	
+	
+	@DELETE
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_XML) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String deleteItem(String itemData) 
+	{ 
+			//Convert the input string to an XML document
+			 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser()); 
+			 
+			//Read the value from the element <itemID>
+			 String itemID = doc.select("itemID").text();
+			 
+			 String output = itemObj.deleteItem(itemID);
+			 
+			 return output; 
+	}
+
 
 
 }
