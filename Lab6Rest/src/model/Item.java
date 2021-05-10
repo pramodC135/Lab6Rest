@@ -41,7 +41,7 @@ public class Item
 			}
 			
 			// Create a prepared statement 'itemID', ?,
-			String query =  " insert into items(`itemID`,`itemCode`,`itemName`,`itemPrice`,`itemDesc`)"+ " values (?, ?, ?, ?, ?)"; 
+			String query =  " insert into itemsk(`itemID`,`itemCode`,`itemName`,`itemPrice`,`itemDesc`)"+ " values (?, ?, ?, ?, ?)"; 
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
 			//blinding values
@@ -85,7 +85,7 @@ public class Item
 				+ "<th>Item Description</th>"
 				+ "<th>Update</th><th>Remove</th></tr>";
 			
-			String query = "select * from items";
+			String query = "select * from itemsk";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
@@ -105,13 +105,11 @@ public class Item
 				output += "<td>" + itemDesc + "</td>";
 				
 				// Buttons
-				output += "<td><input name='btnUpdate' "
-						+ "type='button' value='Update' class='btn btn-danger'></td>"
-						+ "<td><form method='post' action='items.jsp'>"
-						+"<input name=''btnRemove' "
-						+ "type='submit' value='Remove' class='btn btn-danger'>"
-						+"<input name='itemID' type= 'hidden' "
-						+ "value='" + itemID +"'>" + "</form></td></tr>";
+				output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
+								 + "<td><form method='post' action='items.jsp'>"
+								 + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
+								 + "<input name='itemID' type='hidden' value='" + itemID 
+								 + "'>" + "</form></td></tr>"; 
 			}
 			
 			con.close();
@@ -143,7 +141,7 @@ public class Item
 			}
 			
 			// create a prepared statement
-			String query = "UPDATE items SET itemCode=?, itemName=?, itemPrice=?, itemDesc=? WHERE itemID=?";
+			String query = "UPDATE itemsk SET itemCode=?, itemName=?, itemPrice=?, itemDesc=? WHERE itemID=?";
 			
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
@@ -183,7 +181,7 @@ public class Item
 			}
 			
 			//Create a prepared statement
-			String query = "delete from items where itemID=?";
+			String query = "delete from itemsk where itemID=?";
 			
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
